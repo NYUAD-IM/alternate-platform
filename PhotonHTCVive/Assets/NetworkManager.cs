@@ -62,7 +62,7 @@ public class NetworkManager : MonoBehaviour {
 		Debug.Log("Connected to Room");
 		Debug.Log ("Creating a player");
 		GameObject.Instantiate (playerprefab, Vector3.zero, Quaternion.identity);
-		GameObject headset = GameObject.Find ("[CameraRig]/Camera (head)");
+		GameObject headset = GameObject.Find ("Camera (eye)");
 		GameObject photonCube = PhotonNetwork.Instantiate(headsetcubeprefab.name, Vector3.up * 5, Quaternion.identity, 0);
 		photonCube.transform.SetParent (headset.transform);
 	}
