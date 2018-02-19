@@ -9,6 +9,7 @@ public class NetworkManager : MonoBehaviour {
 	private RoomInfo[] roomsList;
 	//private byte numPlayers = 8;
 	public GameObject playerprefab;
+	public GameObject headsetcubeprefab;
 
 	// Use this for initialization
 	void Start()
@@ -60,6 +61,9 @@ public class NetworkManager : MonoBehaviour {
 	{
 		Debug.Log("Connected to Room");
 		Debug.Log ("Creating a player");
-		PhotonNetwork.Instantiate(playerprefab.name, Vector3.up * 5, Quaternion.identity, 0);
+		GameObject.Instantiate (playerprefab, Vector3.zero, Quaternion.identity);
+		GameObject headset = GameObject.Find ("[CameraRig]/Camera (head)");
+		GameObject photonCube = PhotonNetwork.Instantiate(headsetcubeprefab.name, Vector3.up * 5, Quaternion.identity, 0);
+		photonCube.transform.SetParent (headset.transform);
 	}
 }
