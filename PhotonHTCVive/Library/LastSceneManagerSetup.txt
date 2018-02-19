@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/HTCVive_v1.unity
+  isLoaded: 1
+  isActive: 1
