@@ -12,3 +12,4 @@ This is the repository for an easy-to-use Unity package for networking HTC Vives
 ### 02/21
 - make objects on similar scale
 - spawn htc vives on different locations
+- Make sure to check "Is Kinematic" on your display object to keep it locked to it's parent
