@@ -10,6 +10,7 @@ This is the repository for an easy-to-use Unity package for networking HTC Vives
 
 
 ### 02/21
-- make objects on similar scale
-- spawn htc vives on different locations
 - Make sure to check "Is Kinematic" on your display object to keep it locked to it's parent
+- Display objects for hands created
+- You need to have empty game objects for different spawn points
+- spawn points are added to the array and based on Photon Network countOfPlayers, a user will be added to the room at a unique spawn point
