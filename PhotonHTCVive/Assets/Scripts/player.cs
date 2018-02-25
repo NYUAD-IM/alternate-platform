@@ -9,7 +9,6 @@ public class player : Photon.MonoBehaviour {
 
 	void Update()
 	{
-		
 		if (photonView.isMine) {
 			if(gameObject.name == "Cube"){
 				InputMovement ();
@@ -61,17 +60,23 @@ public class player : Photon.MonoBehaviour {
 	{
 		Rigidbody rb = GetComponent<Rigidbody> ();
 		
-		if (Input.GetKey(KeyCode.W))
-			rb.MovePosition(rb.position + Vector3.forward * speed * Time.deltaTime);
-
-		if (Input.GetKey(KeyCode.S))
-			rb.MovePosition(rb.position - Vector3.forward * speed * Time.deltaTime);
-
-		if (Input.GetKey(KeyCode.D))
-			rb.MovePosition(rb.position + Vector3.right * speed * Time.deltaTime);
-
-		if (Input.GetKey(KeyCode.A))
-			rb.MovePosition(rb.position - Vector3.right * speed * Time.deltaTime);
+		if (Input.GetKey (KeyCode.W)) {
+			
+			rb.MovePosition (rb.position + Vector3.forward * speed * Time.deltaTime);
+			MoveTo (gameObject.transform.position);
+		}
+		if (Input.GetKey (KeyCode.S)) {
+			rb.MovePosition (rb.position - Vector3.forward * speed * Time.deltaTime);
+			MoveTo (gameObject.transform.position);
+		}
+		if (Input.GetKey (KeyCode.D)) {
+			rb.MovePosition (rb.position + Vector3.right * speed * Time.deltaTime);
+			MoveTo (gameObject.transform.position);
+		}
+		if (Input.GetKey (KeyCode.A)){
+			rb.MovePosition (rb.position - Vector3.right * speed * Time.deltaTime);
+			MoveTo (gameObject.transform.position);
+	}
 	}
 
 
@@ -87,6 +92,14 @@ public class player : Photon.MonoBehaviour {
 
 		if (photonView.isMine)
 			photonView.RPC("ChangeColorTo", PhotonTargets.OthersBuffered, color);
+	}
+
+	[PunRPC] void MoveTo(Vector3 pos)
+	{
+		GetComponent<Transform>().position = new Vector3(pos.x,pos.y,pos.z);
+
+		if (photonView.isMine)
+			photonView.RPC("MoveTo", PhotonTargets.OthersBuffered, pos);
 	}
 
 

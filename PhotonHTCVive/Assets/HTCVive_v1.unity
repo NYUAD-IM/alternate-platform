@@ -883,11 +883,12 @@ MonoBehaviour:
   OwnerShipWasTransfered: 0
   prefixBackup: -1
   synchronization: 1
-  onSerializeTransformOption: 3
+  onSerializeTransformOption: 0
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
   - {fileID: 1728741318}
+  - {fileID: 1728741317}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 3
   instantiationId: 3
