@@ -91,7 +91,7 @@ public class NetworkManager : MonoBehaviour {
 		Debug.Log ("Creating a player");
 
 		//playerprefab is a camera rig for HTC Vive
-		GameObject.Instantiate (playerprefab, spawnPoints[PhotonNetwork.countOfPlayers].position, Quaternion.identity);
+		GameObject.Instantiate (playerprefab,spawnPoints[PhotonNetwork.countOfPlayers].position , Quaternion.identity);
 
 	}
 
@@ -106,7 +106,7 @@ public class NetworkManager : MonoBehaviour {
 
 		//Find headset and instaniate cube ON NETWORK -- set headset as cube's parent
 		GameObject headset = GameObject.Find ("Camera (eye)");
-		GameObject photonCube = PhotonNetwork.Instantiate(headsetcubeprefab.name, Vector3.zero, Quaternion.identity, 0);
+		GameObject photonCube = PhotonNetwork.Instantiate(headsetcubeprefab.name, headset.transform.position, Quaternion.identity, 0);
 		photonCube.transform.SetParent (headset.transform);
 
 		//Find the controllers and instantiate capsules ON NETOWRK -- set controllers as the parents of the capsules

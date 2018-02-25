@@ -11,7 +11,9 @@ public class player : Photon.MonoBehaviour {
 	{
 		
 		if (photonView.isMine) {
-			//InputMovement ();
+			if(gameObject.name == "Cube"){
+				InputMovement ();
+			}
 			InputColorChange();
 		}else
 		{
