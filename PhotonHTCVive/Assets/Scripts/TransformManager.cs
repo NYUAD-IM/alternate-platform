@@ -53,4 +53,16 @@ public class TransformManager : Photon.MonoBehaviour {
 		syncTime += Time.deltaTime;
 		rb.position = Vector3.Lerp(syncStartPosition, syncEndPosition, syncTime / syncDelay);
 	}
+
+	public void StartColorChange(Vector3 color){
+		photonView.RPC("ChangeColorTo",PhotonTargets.All, color);
+	}
+
+	[PunRPC] void ChangeColorTo(Vector3 color)
+	{
+		GetComponent<Renderer>().material.color = new Color(color.x, color.y, color.z, 1f);
+
+		if (photonView.isMine)
+			photonView.RPC("ChangeColorTo", PhotonTargets.OthersBuffered, color);
+	}
 }

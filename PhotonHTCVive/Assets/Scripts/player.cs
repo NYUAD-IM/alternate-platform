@@ -18,7 +18,7 @@ public class player : Photon.MonoBehaviour {
 
 		if (photonView.isMine) {
 			
-			photonView.RPC("InputColorChange",PhotonTargets.All);
+
 		}else
 		{
 			SyncedMovement();
@@ -87,30 +87,13 @@ public class player : Photon.MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			GameObject go = GameObject.Find ("Cube");
 
-			Debug.Log (go);
-		
-
 			if (go.GetComponent<PhotonView> ().isMine)
-				go.GetComponent<Renderer> ().material.color = Color.green;
+				go.GetComponent<TransformManager> ().StartColorChange (Vector3.forward);
 			else
 				go.GetComponent<PhotonView> ().RequestOwnership ();
 		}
 	}
 
-
-	[PunRPC] void InputColorChange()
-	{
-		if (Input.GetKeyDown(KeyCode.R))
-			ChangeColorTo(new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)));
-	}
-
-	[PunRPC] void ChangeColorTo(Vector3 color)
-	{
-		GetComponent<Renderer>().material.color = new Color(color.x, color.y, color.z, 1f);
-
-		if (photonView.isMine)
-			photonView.RPC("ChangeColorTo", PhotonTargets.OthersBuffered, color);
-	}
 
 	[PunRPC] void MoveTo(Vector3 pos)
 	{
