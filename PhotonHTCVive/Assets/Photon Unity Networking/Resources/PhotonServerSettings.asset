@@ -39,4 +39,5 @@ MonoBehaviour:
   - RequestForPickupTimes
   - MoveTo
   - InputColorChange
+  - SyncedMovement
   DisableAutoOpenWizard: 1

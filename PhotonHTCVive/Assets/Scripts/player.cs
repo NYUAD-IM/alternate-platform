@@ -14,10 +14,10 @@ public class player : Photon.MonoBehaviour {
 
 	void Update()
 	{
+		InputMovement ();
+
 		if (photonView.isMine) {
-			if(gameObject.name == "Cube"){
-				InputMovement ();
-			}
+			
 			photonView.RPC("InputColorChange",PhotonTargets.All);
 		}else
 		{
@@ -81,7 +81,20 @@ public class player : Photon.MonoBehaviour {
 		if (Input.GetKey (KeyCode.A)){
 			rb.MovePosition (rb.position - Vector3.right * speed * Time.deltaTime);
 			MoveTo (gameObject.transform.position);
-	}
+		}
+
+
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			GameObject go = GameObject.Find ("Cube");
+
+			Debug.Log (go);
+		
+
+			if (go.GetComponent<PhotonView> ().isMine)
+				go.GetComponent<Renderer> ().material.color = Color.green;
+			else
+				go.GetComponent<PhotonView> ().RequestOwnership ();
+		}
 	}
 
 
