@@ -6,6 +6,11 @@ public class player : Photon.MonoBehaviour {
 
 	public float speed = 10f;
 
+	PhotonView photonView;
+
+	void Start(){
+		photonView = PhotonView.Get (this);
+	}
 
 	void Update()
 	{
@@ -13,7 +18,7 @@ public class player : Photon.MonoBehaviour {
 			if(gameObject.name == "Cube"){
 				InputMovement ();
 			}
-			InputColorChange();
+			photonView.RPC("InputColorChange",PhotonTargets.All);
 		}else
 		{
 			SyncedMovement();
@@ -80,7 +85,7 @@ public class player : Photon.MonoBehaviour {
 	}
 
 
-	private void InputColorChange()
+	[PunRPC] void InputColorChange()
 	{
 		if (Input.GetKeyDown(KeyCode.R))
 			ChangeColorTo(new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)));
