@@ -42,4 +42,8 @@ MonoBehaviour:
   - SyncedMovement
   - GetGrip
   - ReleaseGrip
+  - GetTrigger
+  - ReleaseTrigger
+  - DetachParent
+  - SetNewParent
   DisableAutoOpenWizard: 1
