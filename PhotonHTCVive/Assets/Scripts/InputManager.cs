@@ -29,7 +29,6 @@ public class InputManager : MonoBehaviour {
 
 		Controller = SteamVR_Controller.Input((int)trackedObj.index);
 
-		Debug.Log (Controller.GetHairTriggerDown());
 
 
 		// Getting the Touchpad Axis
@@ -41,14 +40,19 @@ public class InputManager : MonoBehaviour {
 		// Getting the Trigger press
 		if (Controller.GetHairTriggerDown())
 		{
-			GetGrip ();
+			Debug.Log ("heyyy");
+			GameObject go = GameObject.Find ("Cube");
+			go.GetComponent<PhotonView> ().RequestOwnership ();
+			photonView.RPC("GetTrigger",PhotonTargets.All);
+			//GetTrigger ();
 
 		}
 
 		// Getting the Trigger Release
 		if (Controller.GetHairTriggerUp())
 		{
-			ReleaseGrip ();
+			photonView.RPC("ReleaseTrigger",PhotonTargets.All);
+			//ReleaseTrigger ();
 
 		}
 
@@ -65,26 +69,25 @@ public class InputManager : MonoBehaviour {
 		}
 	}
 
-	[PunRPC] void ReleaseGrip()
+	[PunRPC] void ReleaseTrigger()
 	{
 		GameObject go = GameObject.Find ("Cube");
-		go.GetComponent<PhotonView> ().RequestOwnership ();
 		go.transform.parent = null;
 		Debug.Log(gameObject.name + " Trigger Release");
 
 		if (photonView.isMine)
-			photonView.RPC("ReleaseGrip", PhotonTargets.OthersBuffered);
+			photonView.RPC("ReleaseTrigger", PhotonTargets.OthersBuffered);
 	}
 
-	[PunRPC] void GetGrip()
+	[PunRPC] void GetTrigger()
 	{
 		GameObject go = GameObject.Find ("Cube");
-		go.GetComponent<PhotonView> ().RequestOwnership ();
+		//go.GetComponent<PhotonView> ().RequestOwnership ();
 		go.transform.SetParent (gameObject.transform);
 
 		Debug.Log(gameObject.name + " Trigger Press");
 
 		if (photonView.isMine)
-			photonView.RPC("GetGrip", PhotonTargets.OthersBuffered);
+			photonView.RPC("GetTrigger", PhotonTargets.OthersBuffered);
 	}
 }

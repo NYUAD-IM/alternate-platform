@@ -91,7 +91,7 @@ public class NetworkManager : MonoBehaviour {
 		Debug.Log ("Creating a player");
 
 		//playerprefab is a camera rig for HTC Vive
-		GameObject.Instantiate (playerprefab,spawnPoints[Mathf.Max(PhotonNetwork.countOfPlayers-1, spawnPoints.Length-1)].position , Quaternion.identity);
+		GameObject.Instantiate (playerprefab,spawnPoints[Mathf.Min(PhotonNetwork.countOfPlayers-1, spawnPoints.Length-1)].position , Quaternion.identity);
 
 	}
 
