@@ -20,5 +20,14 @@ This is the repository for an easy-to-use Unity package for networking HTC Vives
 - You don't need to approve ownership, it is approved by default.
 - To sync objects across players, you need to use Pun RPCs.
 
-### 03/01
+### 03/04
 - Pick up an object with controllers and sync across players.
+- Photonview should view the script and not the transform. (This fixes flickering problem)
+- Have all the PunPRC scripts in the same script ideally. Have a network manager that manages the PunRPC scripts.
+- Always have the third argument for the PhotonView.RPC function
+
+### 03/21
+- Clean up scripts, documentation
+
+
+
