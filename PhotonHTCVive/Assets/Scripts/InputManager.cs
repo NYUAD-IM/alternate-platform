@@ -11,10 +11,8 @@ public class InputManager : MonoBehaviour {
 	// Getting a reference to the controller Interface
 	private SteamVR_Controller.Device Controller;
 
-	PhotonView photonView;
-
 	void Start(){
-		photonView = PhotonView.Get (this);
+		
 	}
 
 	void Awake()
@@ -40,19 +38,19 @@ public class InputManager : MonoBehaviour {
 		// Getting the Trigger press
 		if (Controller.GetHairTriggerDown())
 		{
-			Debug.Log ("heyyy");
 			GameObject go = GameObject.Find ("Cube");
 			go.GetComponent<PhotonView> ().RequestOwnership ();
-			photonView.RPC("GetTrigger",PhotonTargets.All);
-			//GetTrigger ();
+			go.GetComponent<TransformManager> ().SetNewParent (this.transform);
 
 		}
 
 		// Getting the Trigger Release
 		if (Controller.GetHairTriggerUp())
 		{
-			photonView.RPC("ReleaseTrigger",PhotonTargets.All);
-			//ReleaseTrigger ();
+			
+			GameObject go = GameObject.Find ("Cube");
+			go.GetComponent<PhotonView> ().RequestOwnership ();
+			go.GetComponent<TransformManager>().DetachParent ();
 
 		}
 
@@ -67,27 +65,5 @@ public class InputManager : MonoBehaviour {
 		{
 			Debug.Log(gameObject.name + " Grip Release");
 		}
-	}
-
-	[PunRPC] void ReleaseTrigger()
-	{
-		GameObject go = GameObject.Find ("Cube");
-		go.transform.parent = null;
-		Debug.Log(gameObject.name + " Trigger Release");
-
-		if (photonView.isMine)
-			photonView.RPC("ReleaseTrigger", PhotonTargets.OthersBuffered);
-	}
-
-	[PunRPC] void GetTrigger()
-	{
-		GameObject go = GameObject.Find ("Cube");
-		//go.GetComponent<PhotonView> ().RequestOwnership ();
-		go.transform.SetParent (gameObject.transform);
-
-		Debug.Log(gameObject.name + " Trigger Press");
-
-		if (photonView.isMine)
-			photonView.RPC("GetTrigger", PhotonTargets.OthersBuffered);
 	}
 }

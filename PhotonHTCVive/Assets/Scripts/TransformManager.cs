@@ -79,5 +79,18 @@ public class TransformManager : Photon.MonoBehaviour {
 			photonView.RPC("MoveTo", PhotonTargets.OthersBuffered, direction);
 	}
 
+	[PunRPC] public void SetNewParent(Transform tr){
+		transform.SetParent (tr);
 
+		if (photonView.isMine)
+			photonView.RPC("SetNewParent", PhotonTargets.OthersBuffered);
+	}
+
+	[PunRPC] public void DetachParent(){
+		transform.parent = null;
+		Debug.Log("Detached all parents");
+
+		if (photonView.isMine)
+			photonView.RPC("DetachParent", PhotonTargets.OthersBuffered);
+	}
 }
