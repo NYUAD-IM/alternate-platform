@@ -40,4 +40,6 @@ MonoBehaviour:
   - MoveTo
   - InputColorChange
   - SyncedMovement
+  - GetGrip
+  - ReleaseGrip
   DisableAutoOpenWizard: 1

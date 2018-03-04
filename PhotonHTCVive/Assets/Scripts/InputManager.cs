@@ -11,6 +11,12 @@ public class InputManager : MonoBehaviour {
 	// Getting a reference to the controller Interface
 	private SteamVR_Controller.Device Controller;
 
+	PhotonView photonView;
+
+	void Start(){
+		photonView = PhotonView.Get (this);
+	}
+
 	void Awake()
 	{
 		// initialize the trackedObj to the component of the controller to which the script is attached
@@ -65,6 +71,9 @@ public class InputManager : MonoBehaviour {
 		go.GetComponent<PhotonView> ().RequestOwnership ();
 		go.transform.parent = null;
 		Debug.Log(gameObject.name + " Trigger Release");
+
+		if (photonView.isMine)
+			photonView.RPC("ReleaseGrip", PhotonTargets.OthersBuffered);
 	}
 
 	[PunRPC] void GetGrip()
@@ -74,5 +83,8 @@ public class InputManager : MonoBehaviour {
 		go.transform.SetParent (gameObject.transform);
 
 		Debug.Log(gameObject.name + " Trigger Press");
+
+		if (photonView.isMine)
+			photonView.RPC("GetGrip", PhotonTargets.OthersBuffered);
 	}
 }
