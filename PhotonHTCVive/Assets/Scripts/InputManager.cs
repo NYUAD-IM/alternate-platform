@@ -35,18 +35,15 @@ public class InputManager : MonoBehaviour {
 		// Getting the Trigger press
 		if (Controller.GetHairTriggerDown())
 		{
-			GameObject go = GameObject.Find ("Cube");
-			go.transform.SetParent (gameObject.transform);
+			GetGrip ();
 
-			Debug.Log(gameObject.name + " Trigger Press");
 		}
 
 		// Getting the Trigger Release
 		if (Controller.GetHairTriggerUp())
 		{
-			GameObject go = GameObject.Find ("Cube");
-			go.transform.parent = null;
-			Debug.Log(gameObject.name + " Trigger Release");
+			ReleaseGrip ();
+
 		}
 
 		// Getting the Grip Press
@@ -60,5 +57,22 @@ public class InputManager : MonoBehaviour {
 		{
 			Debug.Log(gameObject.name + " Grip Release");
 		}
+	}
+
+	[PunRPC] void ReleaseGrip()
+	{
+		GameObject go = GameObject.Find ("Cube");
+		go.GetComponent<PhotonView> ().RequestOwnership ();
+		go.transform.parent = null;
+		Debug.Log(gameObject.name + " Trigger Release");
+	}
+
+	[PunRPC] void GetGrip()
+	{
+		GameObject go = GameObject.Find ("Cube");
+		go.GetComponent<PhotonView> ().RequestOwnership ();
+		go.transform.SetParent (gameObject.transform);
+
+		Debug.Log(gameObject.name + " Trigger Press");
 	}
 }
