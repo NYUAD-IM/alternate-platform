@@ -66,42 +66,55 @@ public class player : Photon.MonoBehaviour {
 		Rigidbody rb = GetComponent<Rigidbody> ();
 		
 		if (Input.GetKey (KeyCode.W)) {
-			
-			rb.MovePosition (rb.position + Vector3.forward * speed * Time.deltaTime);
-			MoveTo (gameObject.transform.position);
+			GameObject go = GameObject.Find ("Cube");
+
+			//if (go.GetComponent<PhotonView> ().isMine)
+			go.GetComponent<PhotonView> ().RequestOwnership ();
+			go.GetComponent<TransformManager> ().StartMoveTo (Vector3.up);
+			//rb.MovePosition (rb.position + Vector3.forward * speed * Time.deltaTime);
+
 		}
 		if (Input.GetKey (KeyCode.S)) {
-			rb.MovePosition (rb.position - Vector3.forward * speed * Time.deltaTime);
-			MoveTo (gameObject.transform.position);
+			GameObject go = GameObject.Find ("Cube");
+
+			//if (go.GetComponent<PhotonView> ().isMine)
+			go.GetComponent<PhotonView> ().RequestOwnership ();
+			go.GetComponent<TransformManager> ().StartMoveTo (Vector3.down);
+			//rb.MovePosition (rb.position - Vector3.forward * speed * Time.deltaTime);
+
 		}
 		if (Input.GetKey (KeyCode.D)) {
-			rb.MovePosition (rb.position + Vector3.right * speed * Time.deltaTime);
-			MoveTo (gameObject.transform.position);
+			GameObject go = GameObject.Find ("Cube");
+
+			//if (go.GetComponent<PhotonView> ().isMine)
+			go.GetComponent<PhotonView> ().RequestOwnership ();
+			go.GetComponent<TransformManager> ().StartMoveTo (Vector3.left);
+			//rb.MovePosition (rb.position + Vector3.right * speed * Time.deltaTime);
+		
 		}
 		if (Input.GetKey (KeyCode.A)){
-			rb.MovePosition (rb.position - Vector3.right * speed * Time.deltaTime);
-			MoveTo (gameObject.transform.position);
+			GameObject go = GameObject.Find ("Cube");
+
+			//if (go.GetComponent<PhotonView> ().isMine)
+			go.GetComponent<PhotonView> ().RequestOwnership ();
+			go.GetComponent<TransformManager> ().StartMoveTo (Vector3.right);
+		//	rb.MovePosition (rb.position - Vector3.right * speed * Time.deltaTime);
+
 		}
 
 
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			GameObject go = GameObject.Find ("Cube");
 
-			if (go.GetComponent<PhotonView> ().isMine)
-				go.GetComponent<TransformManager> ().StartColorChange (Vector3.forward);
-			else
-				go.GetComponent<PhotonView> ().RequestOwnership ();
+			//if (go.GetComponent<PhotonView> ().isMine)
+			go.GetComponent<PhotonView> ().RequestOwnership ();
+			go.GetComponent<TransformManager> ().StartColorChange (Vector3.up);
+			//else
+			//	go.GetComponent<PhotonView> ().RequestOwnership ();
 		}
 	}
 
 
-	[PunRPC] void MoveTo(Vector3 pos)
-	{
-		GetComponent<Transform>().position = new Vector3(pos.x,pos.y,pos.z);
-
-		if (photonView.isMine)
-			photonView.RPC("MoveTo", PhotonTargets.OthersBuffered, pos);
-	}
 
 
 }

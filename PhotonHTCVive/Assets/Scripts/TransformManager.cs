@@ -58,6 +58,10 @@ public class TransformManager : Photon.MonoBehaviour {
 		photonView.RPC("ChangeColorTo",PhotonTargets.All, color);
 	}
 
+	public void StartMoveTo(Vector3 direction){
+		photonView.RPC("MoveTo",PhotonTargets.All, direction);
+	}
+
 	[PunRPC] void ChangeColorTo(Vector3 color)
 	{
 		GetComponent<Renderer>().material.color = new Color(color.x, color.y, color.z, 1f);
@@ -65,4 +69,15 @@ public class TransformManager : Photon.MonoBehaviour {
 		if (photonView.isMine)
 			photonView.RPC("ChangeColorTo", PhotonTargets.OthersBuffered, color);
 	}
+
+
+	[PunRPC] void MoveTo(Vector3 direction)
+	{
+		GetComponent<Transform>().position = direction;
+
+		if (photonView.isMine)
+			photonView.RPC("MoveTo", PhotonTargets.OthersBuffered, direction);
+	}
+
+
 }
