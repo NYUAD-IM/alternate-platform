@@ -35,12 +35,17 @@ public class InputManager : MonoBehaviour {
 		// Getting the Trigger press
 		if (Controller.GetHairTriggerDown())
 		{
+			GameObject go = GameObject.Find ("Cube");
+			go.transform.SetParent (gameObject.transform);
+
 			Debug.Log(gameObject.name + " Trigger Press");
 		}
 
 		// Getting the Trigger Release
 		if (Controller.GetHairTriggerUp())
 		{
+			GameObject go = GameObject.Find ("Cube");
+			go.transform.parent = null;
 			Debug.Log(gameObject.name + " Trigger Release");
 		}
 
