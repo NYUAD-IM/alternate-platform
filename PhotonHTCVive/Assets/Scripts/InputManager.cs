@@ -39,7 +39,7 @@ public class InputManager : Photon.MonoBehaviour {
 		// Getting the Trigger press
 		if (Controller.GetHairTriggerDown())
 		{
-			GameObject go = GameObject.Find ("Cube");
+			GameObject go = GameObject.Find ("Sphere(Clone)");
 			go.GetComponent<PhotonView> ().RequestOwnership ();
 			go.GetComponent<TransformManager> ().SetNewParent (this.transform);
 
@@ -49,7 +49,7 @@ public class InputManager : Photon.MonoBehaviour {
 		if (Controller.GetHairTriggerUp())
 		{
 			
-			GameObject go = GameObject.Find ("Cube");
+			GameObject go = GameObject.Find ("Sphere(Clone)");
 			go.GetComponent<PhotonView> ().RequestOwnership ();
 			go.GetComponent<TransformManager>().DetachParent ();
 
