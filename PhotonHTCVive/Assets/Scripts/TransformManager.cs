@@ -83,11 +83,9 @@ public class TransformManager : Photon.MonoBehaviour {
 		transform.SetParent (tr);
 
 		if (photonView.isMine)
-<<<<<<< HEAD
+
 			photonView.RPC("SetNewParent", PhotonTargets.OthersBuffered,tr);
-=======
-			photonView.RPC("SetNewParent", PhotonTargets.OthersBuffered, tr);
->>>>>>> 014cce5e193f25260dd3bae9274aa9585ec0b368
+
 	}
 
 	[PunRPC] public void DetachParent(){
@@ -95,10 +93,7 @@ public class TransformManager : Photon.MonoBehaviour {
 		Debug.Log("Detached all parents");
 
 		if (photonView.isMine)
-<<<<<<< HEAD
 			photonView.RPC("DetachParent", PhotonTargets.OthersBuffered,photonView.viewID);
-=======
-			photonView.RPC("DetachParent", PhotonTargets.OthersBuffered, photonView.viewID);
->>>>>>> 014cce5e193f25260dd3bae9274aa9585ec0b368
+
 	}
 }
