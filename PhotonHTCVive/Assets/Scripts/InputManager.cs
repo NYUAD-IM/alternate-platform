@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour {
+public class InputManager : Photon.MonoBehaviour {
 
 	//This script should be attached to each controller (Controller Left or Controller Right)
 
@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour {
 	private SteamVR_TrackedObject trackedObj;
 	// Getting a reference to the controller Interface
 	private SteamVR_Controller.Device Controller;
+	public GameObject boringPrefab;
 
 	void Start(){
 		
@@ -58,6 +59,8 @@ public class InputManager : MonoBehaviour {
 		if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
 		{
 			Debug.Log(gameObject.name + " Grip Press");
+			PhotonNetwork.Instantiate(boringPrefab.name, new Vector3(0,3,0), Quaternion.identity, 0);
+			//PhotonNetwork.Instantiate(headsetcubeprefab.name, headset.transform.position, Quaternion.identity, 0);
 		}
 
 		// Getting the Grip Release

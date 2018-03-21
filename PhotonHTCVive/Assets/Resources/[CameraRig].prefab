@@ -499,6 +499,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b0c7d8e90ab8f6469a92f115cc282e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boringPrefab: {fileID: 1116721138539456, guid: b4d03460bdbcb134f823996d4123b5ba,
+    type: 2}
 --- !u!114 &114922334533847942
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -510,6 +512,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b0c7d8e90ab8f6469a92f115cc282e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boringPrefab: {fileID: 1116721138539456, guid: b4d03460bdbcb134f823996d4123b5ba,
+    type: 2}
 --- !u!114 &114961876058737320
 MonoBehaviour:
   m_ObjectHideFlags: 1
