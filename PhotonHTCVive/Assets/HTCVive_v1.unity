@@ -316,6 +316,74 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 48a867665c85744b0a2a5d92baacaab4, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &432594622 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1712783745723816, guid: 48a867665c85744b0a2a5d92baacaab4,
+    type: 2}
+  m_PrefabInternal: {fileID: 385221992}
+--- !u!114 &432594626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 432594622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 0}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 4
+  instantiationId: 4
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
+--- !u!1 &458197747 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1477390066968372, guid: 48a867665c85744b0a2a5d92baacaab4,
+    type: 2}
+  m_PrefabInternal: {fileID: 385221992}
+--- !u!114 &458197748 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114922334533847942, guid: 48a867665c85744b0a2a5d92baacaab4,
+    type: 2}
+  m_PrefabInternal: {fileID: 385221992}
+  m_Script: {fileID: 11500000, guid: 0b0c7d8e90ab8f6469a92f115cc282e3, type: 3}
+--- !u!114 &458197751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 458197747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 1
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 458197748}
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 5
+  instantiationId: 5
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &497474147
 GameObject:
   m_ObjectHideFlags: 0
