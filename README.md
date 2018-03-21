@@ -28,6 +28,6 @@ This is the repository for an easy-to-use Unity package for networking HTC Vives
 
 ### 03/21
 - Clean up scripts, documentation
-
+- Make sure Owner on Photon View Script is set to "Takeover" NOT fixed when working with an object you want all players to interact with
 
 
