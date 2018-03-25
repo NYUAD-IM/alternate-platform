@@ -15,7 +15,7 @@ public class NetworkManager : MonoBehaviour {
 	public GameObject spawnPoint2;
 
 	public Transform[] spawnPoints;
-
+	public bool[] spawnPointTaken;
 	// Use this for initialization
 	void Start()
 	{
@@ -24,6 +24,7 @@ public class NetworkManager : MonoBehaviour {
 
 		spawnPoints = new Transform[2];
 
+		spawnPointTaken = new bool[2];
 
 		spawnPoints[0] = spawnPoint1.transform;
 		//spawnPoints[0].position = Vector3.zero;
@@ -79,10 +80,12 @@ public class NetworkManager : MonoBehaviour {
 		StartCoroutine (WaitForRig ());
 
 		Transform spawnLocation;
-		if (PhotonNetwork.countOfPlayers == 1) {
+		if (!spawnPointTaken[0]) {
 			spawnLocation = spawnPoints [0];
+			spawnPointTaken [0] = true;
 		} else {
 			spawnLocation = spawnPoints [1];
+			spawnPointTaken [1] = true;
 		}
 
 		Debug.Log (spawnLocation);
@@ -93,6 +96,18 @@ public class NetworkManager : MonoBehaviour {
 		//playerprefab is a camera rig for HTC Vive
 		GameObject.Instantiate (playerprefab,spawnPoints[Mathf.Min(PhotonNetwork.countOfPlayers-1, spawnPoints.Length-1)].position , Quaternion.identity);
 
+	}
+
+
+	void onLeftRoom(){
+	
+		GameObject playerRemaining = GameObject.FindGameObjectWithTag ("player");
+		if (playerRemaining.transform.position == spawnPoint1.transform.position) {
+			spawnPointTaken [1] = false;
+		} else {
+			spawnPointTaken [0] = false;
+		}
+	
 	}
 
 	IEnumerator WaitForRig(){
