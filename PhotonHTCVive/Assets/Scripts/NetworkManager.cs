@@ -5,15 +5,19 @@ using UnityEngine;
 public class NetworkManager : MonoBehaviour {
 
 
+	//Name of room (change it to whatever you'd like to have users see on the GUI screen)
 	private const string roomName = "VRlab";
 	private RoomInfo[] roomsList;
 	//private byte numPlayers = 8;
+	
+	//Prefabs for the player, the cube to represent the HTC headset, and the capsule to represent the HTC controllers
 	public GameObject playerprefab;
 	public GameObject headsetcubeprefab;
 	public GameObject capsulehand;
 	public GameObject spawnPoint1;
 	public GameObject spawnPoint2;
 
+	//Array to hold the spawn points in the scene and an array to see which spawn points have been taken 
 	public Transform[] spawnPoints;
 	public bool[] spawnPointTaken;
 	// Use this for initialization
@@ -39,7 +43,7 @@ public class NetworkManager : MonoBehaviour {
 
 	}
 
-
+	//Photon function for GUI list of available rooms
 	void OnGUI()
 	{
 		if (!PhotonNetwork.connected)
@@ -77,8 +81,10 @@ public class NetworkManager : MonoBehaviour {
 
 		Debug.Log ("Players: " + PhotonNetwork.countOfPlayers);
 
+		//Waiting for rig to come into the network and connect the player
 		StartCoroutine (WaitForRig ());
 
+		//Place the rig at a spawn point
 		Transform spawnLocation;
 		if (!spawnPointTaken[0]) {
 			spawnLocation = spawnPoints [0];
@@ -98,7 +104,7 @@ public class NetworkManager : MonoBehaviour {
 
 	}
 
-
+	//function to free up spawn points on disconnect
 	void onLeftRoom(){
 	
 		GameObject playerRemaining = GameObject.FindGameObjectWithTag ("player");
@@ -110,6 +116,7 @@ public class NetworkManager : MonoBehaviour {
 	
 	}
 
+	//
 	IEnumerator WaitForRig(){
 
 
