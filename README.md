@@ -1,7 +1,33 @@
 # alternate-platform
 
-This is the repository for an easy-to-use Unity package for networking HTC Vives.
+This is the repository for an easy-to-use Unity package for networking HTC Vives. Check out "Using alternate-platform" to get started or if you are having issues check out the "Wait, why isn't ___ working?" section below
 
+## Using alternate-platform
+1. Setting up PUN
+  * Download Photon Unity Networking from the Asset Store
+  * Open the PUN Wizard (Window > Photon Unity Networking)
+  * Register to get your AppID
+  * Copy that appID into the related field in the Inspector
+  
+2. Add NetworkManager.cs to your scene in a Network Manager Empty GameObject
+  * See the comments in the script for descriptions of how the script works with Photon 
+  * Set spawn points as empty gameobjects in your scene and add them along with the gameobjects for the headset and controllers to the script's public gameobjects
+  
+3. Creating a gameobject that can be moved around by all players
+
+  * Create a gameobject and add:
+    - rigidbody (that is kinematic)
+    - Transform Manager script
+    - Photon View script with:
+      * Owner: Takeover 
+      * Observe option: Reliable Delta Compressed
+      * Observed Components: Transform Manager Script
+      
+4. A gameobject that can be instantiated by a player and then interactable for all players
+
+  * Follow step 3 then put the gameobject in Assets->Resources so it can be instantiated in the Photon Network
+  * In InputManager script you can see the following line that creates a prefab in the Photon Network:
+     > PhotonNetwork.Instantiate(spherePrefab.name,new Vector3(0,3,0), Quaternion.identity, 0);
 
 ## Wait, why isn't ___ working?
 
@@ -35,35 +61,6 @@ This is the repository for an easy-to-use Unity package for networking HTC Vives
 
 #### My object is jumping around like crazy when I try to interact with it
 - make sure that you are _only_ observing the Transform Manager script
-
-
-## Using alternate-platform
-1. Setting up PUN
-  * Download Photon Unity Networking from the Asset Store
-  * Open the PUN Wizard (Window > Photon Unity Networking)
-  * Register to get your AppID
-  * Copy that appID into the related field in the Inspector
-  
-2. Add NetworkManager.cs to your scene in a Network Manager Empty GameObject
-  * See the comments in the script for descriptions of how the script works with Photon 
-  * Set spawn points as empty gameobjects in your scene and add them along with the gameobjects for the headset and controllers to the script's public gameobjects
-  
-3. Creating a gameobject that can be moved around by all players
-
-  * Create a gameobject and add:
-    - rigidbody (that is kinematic)
-    - Transform Manager script
-    - Photon View script with:
-      * Owner: Takeover 
-      * Observe option: Reliable Delta Compressed
-      * Observed Components: Transform Manager Script
-      
-4. A gameobject that can be instantiated by a player and then interactable for all players
-
-  * Follow step 3 then put the gameobject in Assets->Resources so it can be instantiated in the Photon Network
-  * In InputManager script you can see the following line that creates a prefab in the Photon Network:
-     > PhotonNetwork.Instantiate(spherePrefab.name,new Vector3(0,3,0), Quaternion.identity, 0);
-
 
 
 
