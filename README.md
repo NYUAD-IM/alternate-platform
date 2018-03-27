@@ -34,6 +34,10 @@ This is the repository for an easy-to-use Unity package for networking HTC Vives
 #### My room isn't showing on another Unity build/game view
 - If you want to join the same room, also make sure that the app id on both games are the same
 
+#### I cant see the headset place holder or the controller place holders
+- make sure the hsCube prefab is in resources and has Photon View that is observing the Player script
+- make sure the capsuleHand prefab is in resources and has Photon View that is observing the Player script
+
 #### My Object isn't showing in the room
 - make sure you have attached the Photon View Script
 - make sure Photon View is observing Transform Manager script (or the script you have created that has OnPhotonSerializeView())
