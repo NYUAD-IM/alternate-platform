@@ -14,13 +14,9 @@ public class player : Photon.MonoBehaviour {
 
 	void Update()
 	{
-		InputMovement ();
+		//InputMovement ();
 
-		if (photonView.isMine) {
-			
-
-		}else
-		{
+		if (!photonView.isMine) {
 			SyncedMovement();
 		}
 		
