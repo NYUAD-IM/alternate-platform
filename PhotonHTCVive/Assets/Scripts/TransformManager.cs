@@ -14,6 +14,7 @@ public class TransformManager : Photon.MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		//Update the movement
 		if (!photonView.isMine) {
 			SyncedMovement ();
 		}
@@ -25,6 +26,8 @@ public class TransformManager : Photon.MonoBehaviour {
 	private Vector3 syncStartPosition = Vector3.zero;
 	private Vector3 syncEndPosition = Vector3.zero;
 
+	//Here if we are writing to the stream we send position and velocity
+	//otherwise we are reading the position and the velocity from the stream to get the update information
 	void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
 	{
 		Rigidbody rb = GetComponent<Rigidbody> ();
@@ -62,6 +65,7 @@ public class TransformManager : Photon.MonoBehaviour {
 		photonView.RPC("MoveTo",PhotonTargets.All, direction);
 	}
 
+	//Change the color 
 	[PunRPC] void ChangeColorTo(Vector3 color)
 	{
 		GetComponent<Renderer>().material.color = new Color(color.x, color.y, color.z, 1f);
@@ -70,7 +74,7 @@ public class TransformManager : Photon.MonoBehaviour {
 			photonView.RPC("ChangeColorTo", PhotonTargets.OthersBuffered, color);
 	}
 
-
+	//move the object
 	[PunRPC] void MoveTo(Vector3 direction)
 	{
 		GetComponent<Transform>().position = direction;
@@ -79,6 +83,7 @@ public class TransformManager : Photon.MonoBehaviour {
 			photonView.RPC("MoveTo", PhotonTargets.OthersBuffered, direction);
 	}
 
+	//set a new parent 
 	[PunRPC] public void SetNewParent(Transform tr){
 		transform.SetParent (tr);
 
@@ -88,6 +93,7 @@ public class TransformManager : Photon.MonoBehaviour {
 
 	}
 
+	//detach the parent
 	[PunRPC] public void DetachParent(){
 		transform.parent = null;
 		Debug.Log("Detached all parents");
