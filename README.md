@@ -1,6 +1,6 @@
 # alternate-platform
 
-This is the repository for an easy-to-use Unity package for networking HTC Vives. Check out "Using alternate-platform" to get started or if you are having issues check out the "Wait, why isn't ___ working?" section below
+This is the repository for an easy-to-use Unity package for networking HTC Vives. Check out "Using alternate-platform" to get started or if you are having issues check out the ["Wait, why isn't ___ working?"](#wait-why-isnt-___-working) section below
 
 ## Using alternate-platform
 1. Setting up PUN
