@@ -53,3 +53,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerprefab: {fileID: 1293615064935672, guid: 48a867665c85744b0a2a5d92baacaab4,
     type: 2}
+  headsetcubeprefab: {fileID: 1882753203465834, guid: f5bb07664c528ac42966c45deaa78580,
+    type: 2}
+  capsulehand: {fileID: 1147653991657544, guid: 852f5cfe0e0c07f459bead80ba2ceece,
+    type: 2}
+  spawnPoint1: {fileID: 0}
+  spawnPoint2: {fileID: 0}
+  spawnPoints: []
+  spawnPointTaken: 
