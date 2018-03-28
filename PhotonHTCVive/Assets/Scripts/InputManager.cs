@@ -10,7 +10,7 @@ public class InputManager : Photon.MonoBehaviour {
 	private SteamVR_TrackedObject trackedObj;
 	// Getting a reference to the controller Interface
 	private SteamVR_Controller.Device Controller;
-	public GameObject boringPrefab;
+	public GameObject spherePrefab;
 
 	void Start(){
 		
@@ -40,6 +40,9 @@ public class InputManager : Photon.MonoBehaviour {
 		if (Controller.GetHairTriggerDown())
 		{
 			GameObject go = GameObject.Find ("Sphere(Clone)");
+
+
+            //This line is the one that changes the value of photonView.isMine on the specified GameObject
 			go.GetComponent<PhotonView> ().RequestOwnership ();
 			go.GetComponent<TransformManager> ().SetNewParent (this.transform);
 
@@ -50,6 +53,7 @@ public class InputManager : Photon.MonoBehaviour {
 		{
 			
 			GameObject go = GameObject.Find ("Sphere(Clone)");
+            // Make sure we have ownership before we do anything the the objects
 			go.GetComponent<PhotonView> ().RequestOwnership ();
 			go.GetComponent<TransformManager>().DetachParent ();
 
@@ -59,7 +63,7 @@ public class InputManager : Photon.MonoBehaviour {
 		if (Controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
 		{
 			Debug.Log(gameObject.name + " Grip Press");
-			PhotonNetwork.Instantiate(boringPrefab.name, new Vector3(0,3,0), Quaternion.identity, 0);
+			PhotonNetwork.Instantiate(spherePrefab.name, new Vector3(0,3,0), Quaternion.identity, 0);
 			//PhotonNetwork.Instantiate(headsetcubeprefab.name, headset.transform.position, Quaternion.identity, 0);
 		}
 
