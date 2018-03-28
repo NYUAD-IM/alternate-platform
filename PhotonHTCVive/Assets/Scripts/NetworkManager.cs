@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NetworkManager : MonoBehaviour {
+// This network manager creates a room, manages player instantiation (finding rig etc) and their spawn positions
 
+public class NetworkManager : MonoBehaviour {
 
 	//Name of room (change it to whatever you'd like to have users see on the GUI screen)
 	private const string roomName = "VRlab";
 	private RoomInfo[] roomsList;
 	//private byte numPlayers = 8;
-	
+
 	//Prefabs for the player, the cube to represent the HTC headset, and the capsule to represent the HTC controllers
 	public GameObject playerprefab;
 	public GameObject headsetcubeprefab;
@@ -17,7 +18,7 @@ public class NetworkManager : MonoBehaviour {
 	public GameObject spawnPoint1;
 	public GameObject spawnPoint2;
 
-	//Array to hold the spawn points in the scene and an array to see which spawn points have been taken 
+	//Array to hold the spawn points in the scene and an array to see which spawn points have been taken
 	public Transform[] spawnPoints;
 	public bool[] spawnPointTaken;
 	// Use this for initialization
@@ -28,19 +29,14 @@ public class NetworkManager : MonoBehaviour {
 
 		spawnPoints = new Transform[2];
 
-		spawnPointTaken = new bool[2];
-
 		spawnPoints[0] = spawnPoint1.transform;
-		//spawnPoints[0].position = Vector3.zero;
-	
 		spawnPoints[1] = spawnPoint2.transform;
-		//spawnPoints[1].position = Vector3.zero;
-	
+
+		spawnPointTaken = new bool[2];
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-
 	}
 
 	//Photon function for GUI list of available rooms
@@ -54,7 +50,6 @@ public class NetworkManager : MonoBehaviour {
 		{
 			// Create Room
 			if (GUI.Button(new Rect(100, 100, 250, 100), "Start Server"))
-				//PhotonNetwork.CreateRoom(roomName + System.Guid.NewGuid().ToString("N"), true, true, 5); maxPlayers = numPlayers
 				PhotonNetwork.CreateRoom(roomName, new RoomOptions(){MaxPlayers = 6, IsVisible = true}, null);
 
 			// Join Room
@@ -63,7 +58,6 @@ public class NetworkManager : MonoBehaviour {
 				Debug.Log ("rooms list length: " + roomsList.Length);
 				for (int i = 0; i < roomsList.Length; i++)
 				{
-					
 					if (GUI.Button(new Rect(100, 250 + (110 * i), 250, 100), "Join " + roomsList[i].name))
 						PhotonNetwork.JoinRoom(roomsList[i].name);
 				}
@@ -73,14 +67,13 @@ public class NetworkManager : MonoBehaviour {
 
 	void OnReceivedRoomListUpdate()
 	{
-		
 		roomsList = PhotonNetwork.GetRoomList();
 	}
+
 	void OnJoinedRoom()
-	{		
+	{
 
-		Debug.Log ("Players: " + PhotonNetwork.countOfPlayers);
-
+		Debug.Log ("Current number of players is: " + PhotonNetwork.countOfPlayers);
 		//Waiting for rig to come into the network and connect the player
 		StartCoroutine (WaitForRig ());
 
@@ -94,10 +87,7 @@ public class NetworkManager : MonoBehaviour {
 			spawnPointTaken [1] = true;
 		}
 
-		Debug.Log (spawnLocation);
-
-		Debug.Log ("Connected to Room");
-		Debug.Log ("Creating a player");
+		Debug.Log ("Creating new player and spawn position is " + spawnLocation);
 
 		//playerprefab is a camera rig for HTC Vive
 		GameObject.Instantiate (playerprefab,spawnPoints[Mathf.Min(PhotonNetwork.countOfPlayers-1, spawnPoints.Length-1)].position , Quaternion.identity);
@@ -106,25 +96,20 @@ public class NetworkManager : MonoBehaviour {
 
 	//function to free up spawn points on disconnect
 	void onLeftRoom(){
-	
 		GameObject playerRemaining = GameObject.FindGameObjectWithTag ("player");
 		if (playerRemaining.transform.position == spawnPoint1.transform.position) {
 			spawnPointTaken [1] = false;
 		} else {
 			spawnPointTaken [0] = false;
 		}
-	
 	}
 
-	//
+	// Helper function to find the rig
 	IEnumerator WaitForRig(){
-
 
 		Debug.Log(PhotonNetwork.countOfPlayers);
 
 		yield return new WaitForSeconds (1);
-
-
 
 		//Find headset and instaniate cube ON NETWORK -- set headset as cube's parent
 		GameObject headset = GameObject.Find ("Camera (eye)");
@@ -137,26 +122,12 @@ public class NetworkManager : MonoBehaviour {
 		Debug.Log (controllerLeft);
 		GameObject capsuleHandLeft = PhotonNetwork.Instantiate(capsulehand.name, controllerLeft.transform.position, Quaternion.identity, 0);
 		capsuleHandLeft.transform.SetParent (controllerLeft.transform);
-		//capsuleHandLeft.transform.position = Vector3.zero;
 
 		//Now for right controller
 
 		GameObject controllerRight = GameObject.Find("Controller (right)/Model");
 		GameObject capsuleHandRight = PhotonNetwork.Instantiate(capsulehand.name, controllerRight.transform.position, Quaternion.identity, 0);
 		capsuleHandRight.transform.SetParent (controllerRight.transform);
-		//capsuleHandRight.transform.position = Vector3.zero;
-
-
-		//Debug.Log ("left: " + controllerLeft + " right: " + controllerRight);
-
-
 
 	}
 }
-
-
-
-
-
-
-

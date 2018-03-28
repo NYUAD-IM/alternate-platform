@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// This script manages controller input. Here we use trigger or press to move a game object.
+// Attach this script to each controller (Controller Left or Controller Right)
 public class InputManager : Photon.MonoBehaviour {
-
-	//This script should be attached to each controller (Controller Left or Controller Right)
-
 	// Getting a reference to the controller GameObject
 	private SteamVR_TrackedObject trackedObj;
 	// Getting a reference to the controller Interface
@@ -13,7 +13,6 @@ public class InputManager : Photon.MonoBehaviour {
 	public GameObject boringPrefab;
 
 	void Start(){
-		
 	}
 
 	void Awake()
@@ -24,12 +23,8 @@ public class InputManager : Photon.MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
-
 		Controller = SteamVR_Controller.Input((int)trackedObj.index);
-
-
-
+		
 		// Getting the Touchpad Axis
 		if (Controller.GetAxis() != Vector2.zero)
 		{
@@ -48,11 +43,9 @@ public class InputManager : Photon.MonoBehaviour {
 		// Getting the Trigger Release
 		if (Controller.GetHairTriggerUp())
 		{
-			
 			GameObject go = GameObject.Find ("Sphere(Clone)");
 			go.GetComponent<PhotonView> ().RequestOwnership ();
 			go.GetComponent<TransformManager>().DetachParent ();
-
 		}
 
 		// Getting the Grip Press
@@ -60,7 +53,6 @@ public class InputManager : Photon.MonoBehaviour {
 		{
 			Debug.Log(gameObject.name + " Grip Press");
 			PhotonNetwork.Instantiate(boringPrefab.name, new Vector3(0,3,0), Quaternion.identity, 0);
-			//PhotonNetwork.Instantiate(headsetcubeprefab.name, headset.transform.position, Quaternion.identity, 0);
 		}
 
 		// Getting the Grip Release

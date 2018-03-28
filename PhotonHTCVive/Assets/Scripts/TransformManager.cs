@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// This script allows moving any game object (when controllers trigger & release)
 public class TransformManager : Photon.MonoBehaviour {
 
 	public float speed = 10f;
@@ -65,32 +66,27 @@ public class TransformManager : Photon.MonoBehaviour {
 		photonView.RPC("MoveTo",PhotonTargets.All, direction);
 	}
 
-	//Change the color 
+	//Change the color
 	[PunRPC] void ChangeColorTo(Vector3 color)
 	{
 		GetComponent<Renderer>().material.color = new Color(color.x, color.y, color.z, 1f);
-
 		if (photonView.isMine)
 			photonView.RPC("ChangeColorTo", PhotonTargets.OthersBuffered, color);
 	}
 
-	//move the object
+	//Move the object
 	[PunRPC] void MoveTo(Vector3 direction)
 	{
 		GetComponent<Transform>().position = direction;
-
 		if (photonView.isMine)
 			photonView.RPC("MoveTo", PhotonTargets.OthersBuffered, direction);
 	}
 
-	//set a new parent 
+	//set a new parent
 	[PunRPC] public void SetNewParent(Transform tr){
 		transform.SetParent (tr);
-
 		if (photonView.isMine)
-
 			photonView.RPC("SetNewParent", PhotonTargets.OthersBuffered,tr);
-
 	}
 
 	//detach the parent

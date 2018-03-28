@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// This script syncronizes player position, movement, as well as input across Photon network
 public class player : Photon.MonoBehaviour {
 
 	public float speed = 10f;
@@ -14,12 +15,9 @@ public class player : Photon.MonoBehaviour {
 
 	void Update()
 	{
-		//InputMovement ();
-
 		if (!photonView.isMine) {
 			SyncedMovement();
 		}
-		
 	}
 
 	private float lastSynchronizationTime = 0f;
@@ -57,60 +55,40 @@ public class player : Photon.MonoBehaviour {
 		rb.position = Vector3.Lerp(syncStartPosition, syncEndPosition, syncTime / syncDelay);
 	}
 
+	// Following code allows synchronized object movement & color change via keyboard input
 	void InputMovement()
 	{
 		Rigidbody rb = GetComponent<Rigidbody> ();
-		
+		// keyboard WASD input to move cube
 		if (Input.GetKey (KeyCode.W)) {
 			GameObject go = GameObject.Find ("Cube");
-
+			// Uncomment following line to restrict player requesting gameObject ownership
 			//if (go.GetComponent<PhotonView> ().isMine)
 			go.GetComponent<PhotonView> ().RequestOwnership ();
 			go.GetComponent<TransformManager> ().StartMoveTo (Vector3.up);
-			//rb.MovePosition (rb.position + Vector3.forward * speed * Time.deltaTime);
-
 		}
+
 		if (Input.GetKey (KeyCode.S)) {
 			GameObject go = GameObject.Find ("Cube");
-
-			//if (go.GetComponent<PhotonView> ().isMine)
 			go.GetComponent<PhotonView> ().RequestOwnership ();
 			go.GetComponent<TransformManager> ().StartMoveTo (Vector3.down);
-			//rb.MovePosition (rb.position - Vector3.forward * speed * Time.deltaTime);
-
 		}
 		if (Input.GetKey (KeyCode.D)) {
 			GameObject go = GameObject.Find ("Cube");
-
-			//if (go.GetComponent<PhotonView> ().isMine)
 			go.GetComponent<PhotonView> ().RequestOwnership ();
 			go.GetComponent<TransformManager> ().StartMoveTo (Vector3.left);
-			//rb.MovePosition (rb.position + Vector3.right * speed * Time.deltaTime);
-		
 		}
 		if (Input.GetKey (KeyCode.A)){
 			GameObject go = GameObject.Find ("Cube");
-
-			//if (go.GetComponent<PhotonView> ().isMine)
 			go.GetComponent<PhotonView> ().RequestOwnership ();
 			go.GetComponent<TransformManager> ().StartMoveTo (Vector3.right);
-		//	rb.MovePosition (rb.position - Vector3.right * speed * Time.deltaTime);
-
 		}
 
-
+		// keyboard space to change cube color
 		if (Input.GetKeyDown (KeyCode.Space)) {
 			GameObject go = GameObject.Find ("Cube");
-
-			//if (go.GetComponent<PhotonView> ().isMine)
 			go.GetComponent<PhotonView> ().RequestOwnership ();
 			go.GetComponent<TransformManager> ().StartColorChange (Vector3.up);
-			//else
-			//	go.GetComponent<PhotonView> ().RequestOwnership ();
 		}
 	}
-
-
-
-
 }
