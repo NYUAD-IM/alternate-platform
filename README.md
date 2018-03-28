@@ -2,6 +2,8 @@
 
 This is the repository for an easy-to-use Unity package for networking HTC Vives. Check out "Using alternate-platform" to get started or if you are having issues check out the ["Wait, why isn't ___ working?"](#wait-why-isnt-___-working) section below
 
+### [Download Package](https://github.com/NYUAD-IM/alternate-platform/blob/master/AlternatePlatform1.0.unitypackage)
+
 ## Using alternate-platform
 1. Setting up PUN
   * Download Photon Unity Networking from the Asset Store
